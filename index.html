@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RecetaClip - Your favorite recipe management app for Android. Organize and manage your favorite recipes in one place.">
     <title>RecetaClip - Developer</title>
     <style>
         * {
@@ -10,83 +11,381 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
+        :root {
+            --primary-color: #459497;
+            --primary-dark: #357a7d;
+            --primary-light: #5fb3b6;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--white);
+            padding: 80px 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+        
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .app-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
         h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        .subtitle {
-            color: #666;
+        
+        .tagline {
+            font-size: 1.4em;
             margin-bottom: 30px;
-            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 300;
         }
-        .app-info {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--text-dark);
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 2px;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: var(--primary-light);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        /* About Section */
+        .about-content {
+            background: var(--bg-light);
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            font-size: 1.2em;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .about-text strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--white);
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
             margin: 20px 0;
         }
-        .app-info p {
-            color: #555;
-            line-height: 1.6;
-            margin: 10px 0;
-        }
-        .download-link {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 10px;
+        
+        .footer-links a {
+            color: var(--white);
             text-decoration: none;
+            margin: 0 15px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
             margin-top: 20px;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .download-link:hover {
-            transform: scale(1.05);
-        }
-        .footer {
-            margin-top: 30px;
-            color: #999;
+            opacity: 0.7;
             font-size: 0.9em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .tagline {
+                font-size: 1.1em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            main {
+                padding: 50px 20px;
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🍳 RecetaClip</h1>
-        <p class="subtitle">Your favorite recipe app</p>
-        
-        <div class="app-info">
-            <p><strong>RecetaClip</strong> is a mobile application for Android that helps you organize and manage your favorite recipes.</p>
-            <p>Download the app from Google Play Store and start creating your personal recipe collection.</p>
+    <header>
+        <div class="header-content">
+            <div class="app-icon">🍳</div>
+            <h1>RecetaClip</h1>
+            <p class="tagline">Your favorite recipe management app for Android</p>
+            <a href="https://play.google.com/store/apps/details?id=com.recetaclip.app" class="cta-button" target="_blank">
+                Download on Google Play
+            </a>
         </div>
+    </header>
+    
+    <main>
+        <!-- About Section -->
+        <section class="section">
+            <h2 class="section-title">About RecetaClip</h2>
+            <div class="about-content">
+                <p class="about-text">
+                    <strong>RecetaClip</strong> is a modern mobile application designed for Android that helps you organize, manage, and discover your favorite recipes. Whether you're a cooking enthusiast or just starting your culinary journey, RecetaClip makes it easy to build your personal recipe collection.
+                </p>
+                <p class="about-text">
+                    With an intuitive interface and powerful features, RecetaClip transforms how you save, organize, and access your recipes. Keep all your culinary inspiration in one convenient place.
+                </p>
+            </div>
+        </section>
         
-        <a href="https://play.google.com/store/apps/details?id=com.recetaclip.app" class="download-link" target="_blank">
-            Download on Google Play
-        </a>
+        <!-- Features Section -->
+        <section class="section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📝</span>
+                    <h3 class="feature-title">Easy Organization</h3>
+                    <p class="feature-description">Organize your recipes with an intuitive interface designed for simplicity and efficiency.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">Quick Search</h3>
+                    <p class="feature-description">Find your favorite recipes instantly with powerful search and filtering capabilities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💾</span>
+                    <h3 class="feature-title">Save & Manage</h3>
+                    <p class="feature-description">Save recipes from anywhere and manage your collection with ease.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📱</span>
+                    <h3 class="feature-title">Modern Design</h3>
+                    <p class="feature-description">Enjoy a beautiful, modern interface that makes cooking fun and accessible.</p>
+                </div>
+            </div>
+        </section>
         
-        <div class="footer">
-            <p>© 2025 RecetaClip. All rights reserved.</p>
+        <!-- Stats Section (Optional - you can customize these) -->
+        <section class="section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free to Use</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Easy</div>
+                    <div class="stat-label">To Organize</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Modern</div>
+                    <div class="stat-label">Design</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://play.google.com/store/apps/details?id=com.recetaclip.app" target="_blank">Google Play</a>
+                <a href="https://leo-dell.github.io/Lebel.apps/" target="_blank">Developer Website</a>
+            </div>
+            <div class="copyright">
+                <p>© 2025 RecetaClip. All rights reserved.</p>
+                <p style="margin-top: 10px; font-size: 0.85em;">Developed with ❤️ for cooking enthusiasts</p>
+            </div>
         </div>
-    </div>
+    </footer>
 </body>
 </html>
